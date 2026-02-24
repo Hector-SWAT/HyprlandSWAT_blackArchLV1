@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Lanzar las aplicaciones
+celluloid &
+foot -e cava &
+
+# Esperar a que ambas ventanas se inicien (ajustable si son lentas)
+sleep 1.2
+
+# Activar modo flotante
+hyprctl dispatch togglefloating class:^(Celluloid)$
+hyprctl dispatch togglefloating class:^(foot)$
+
+# Esperar un poco a que se apliquen los modos flotantes
+sleep 0.3
+
+# Posicionar y redimensionar: pantalla de 1920x1080
+
+# 🟦 Celluloid → izquierda (0,0) con tamaño 960x1080
+hyprctl dispatch movewindowpixel exact 0 0 class:^(Celluloid)$
+hyprctl dispatch resizewindowpixel exact 960 1080 class:^(Celluloid)$
+
+# 🟩 Cava (en foot) → derecha (960,0) con tamaño 960x1080
+hyprctl dispatch movewindowpixel exact 960 0 class:^(foot)$
+hyprctl dispatch resizewindowpixel exact 960 1080 class:^(foot)$
